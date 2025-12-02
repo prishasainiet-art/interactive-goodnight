@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Goodnight — Prisha</title>
+<style>
+  body{margin:0; font-family:'Poppins',sans-serif; background:#ffd6e8; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; overflow:hidden; text-align:center;}
+  .screen{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; transition:opacity 0.5s ease-in-out;}
+  .hidden{opacity:0; pointer-events:none;}
+  h1{font-size:28px; color:#ff1a8c; margin-bottom:20px;}
+  button{padding:15px 30px; margin:10px; font-size:18px; border:none; border-radius:15px; cursor:pointer; font-weight:bold; background:linear-gradient(90deg,#ff4da6,#ff80bf); color:white; box-shadow:0 0 15px #ffb3da; transition:0.3s;}
+  button:hover{transform:scale(1.05); box-shadow:0 0 25px #ff4da6;}
+  img{width:220px; max-width:80%; border-radius:20px; box-shadow:0 0 15px #ff99cc; margin-bottom:20px;}
+  .bubble{background:#fff0fa; width:80%; margin:15px auto; padding:20px; border-radius:25px; border:3px solid #ff80bf; box-shadow:0 0 20px #ffb3da; color:#ff007a; font-size:18px; transition:0.3s;}
+  .bubble:hover{transform:scale(1.03); box-shadow:0 0 25px #ff4da6;}
+  /* hearts */
+  .heart{position:fixed; top:-10px; font-size:20px; animation: fall linear infinite; opacity:0.8; color:#ff4da6;}
+  @keyframes fall{0%{transform:translateY(-10px);}100%{transform:translateY(110vh);}}
+  /* sparkles */
+  .sparkle{position:fixed; width:6px; height:6px; background:white; border-radius:50%; opacity:0.8; animation: sparkle 2s infinite ease-in-out;}
+  @keyframes sparkle{0%{transform:scale(0.5); opacity:0.5;}50%{transform:scale(1.5); opacity:1;}100%{transform:scale(0.5); opacity:0.5;}}
+</style>
+</head>
+<body>
+
+<!-- Screen 1: Do you miss me? -->
+<div id="screenMiss" class="screen">
+  <h1>Do you miss me today?</h1>
+  <div>
+    <button onclick="missYes()">Yes</button>
+    <button onclick="missNo()">No</button>
+  </div>
+</div>
+
+<!-- Screen Yes + teasing -->
+<div id="screenTease" class="screen hidden">
+  <h1>I knew it! 😏</h1>
+  <h1>Hear this out 💖</h1>
+  <div class="bubble">You got this! All the best for everything 💗</div>
+  <div class="bubble">Goodnight… sleep well and stay happy 🌙💞</div>
+  <div class="bubble">I hope tomorrow brings you sooo much luck 🍀💗</div>
+  <div class="https://media.tenor.com/ba-O8SSOaswAAAAM/cute-bear-silvia-emoji.gif">
+    <img src="" alt="GIF1" />
+    <img src="" alt="GIF2" />
+    <img src="" alt="GIF3" />
+  </div>
+</div>
+
+<!-- Screen No first -->
+<div id="screenAngry" class="screen hidden">
+  <h1>😢</h1>
+  <div class="bubble">It's okay 💖</div>
+  <button onclick="goToAreYouFine()">Next</button>
+</div>
+
+<!-- Screen 2: Are you fine? -->
+<div id="screenAreYouFine" class="screen hidden">
+  <h1>Are you fine?</h1>
+  <div>
+    <button onclick="areYouFineYes()">Yes</button>
+    <button onclick="areYouFineNo()">No</button>
+  </div>
+</div>
+
+<!-- Screen Yes Are you fine -->
+<div id="screenYesFinal" class="screen hidden">
+  <h1>Hear this out 💖</h1>
+  <div class="bubble">You got this! All the best for everything 💗</div>
+  <div class="bubble">Goodnight… sleep well and stay happy 🌙💞</div>
+  <div class="bubble">I hope tomorrow brings you sooo much luck 🍀💗</div>
+  <div class="https://media.tenor.com/iO4ts8Iro7UAAAAM/mocha-and-milk-bears-milk.gif">
+    <img src="https://www.gifcen.com/wp-content/uploads/2025/01/milk-and-mocha-gif-4.gif" alt="GIF1" />
+    <img src="https://media.tenor.com/NqVUEOqyDGQAAAAj/peach-and-goma.gif" alt="GIF2" />
+    <img src="https://media.tenor.com/hi610Pd9rWAAAAAM/quby.gif" alt="GIF3" />
+  </div>
+</div>
+
+<!-- Screen No Are you fine -->
+<div id="screenNoFinal" class="screen hidden">
+  <h1>😢</h1>
+  <div class="bubble">Hey… I know preboards can be really stressful and can make anyone feel frustrated or down. Just remember you’ve been working hard and you’re capable of handling this. Take a small break if you need, breathe, and don’t be too hard on yourself. I believe in you, and I’m quietly cheering for you through all of this.</div>
+  <img id="https://media.tenor.com/EvQ6-C0fc28AAAAM/dare-aggie-bunny-dare-bunny.gif" src="" alt="Comfort GIF" />
+</div>
+
+<script>
+// heart rain
+setInterval(()=>{
+  const heart=document.createElement('div');
+  heart.classList.add('heart');
+  heart.innerHTML='💗';
+  heart.style.left=Math.random()*100+'vw';
+  heart.style.animationDuration=(3+Math.random()*3)+'s';
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
+},200);
+
+// sparkles
+setInterval(()=>{
+  const s=document.createElement('div');
+  s.classList.add('sparkle');
+  s.style.left=Math.random()*100+'vw';
+  s.style.top=Math.random()*100+'vh';
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),2000);
+},300);
+
+function missYes(){
+  document.getElementById('screenMiss').classList.add('hidden');
+  document.getElementById('screenTease').classList.remove('hidden');
+}
+
+function missNo(){
+  document.getElementById('screenMiss').classList.add('hidden');
+  document.getElementById('screenAngry').classList.remove('hidden');
+}
+
+function goToAreYouFine(){
+  document.getElementById('screenAngry').classList.add('hidden');
+  document.getElementById('screenAreYouFine').classList.remove('hidden');
+}
+
+function areYouFineYes(){
+  document.getElementById('screenAreYouFine').classList.add('hidden');
+  document.getElementById('screenYesFinal').classList.remove('hidden');
+}
+
+function areYouFineNo(){
+  document.getElementById('screenAreYouFine').classList.add('hidden');
+  document.getElementById('screenNoFinal').classList.remove('hidden');
+}
+</script>
+
+</body>
+</html>
